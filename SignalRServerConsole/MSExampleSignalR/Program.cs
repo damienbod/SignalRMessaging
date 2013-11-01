@@ -38,7 +38,7 @@ namespace MSExampleSignalR
                     {
                         IHubContext hubContext = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
 
-                        var vv = new HelloModel {Age = 9, Molly = "fff"};
+                        var vv = new HelloModel {Age = 37, Molly = "pushed direct from Server "};
 
                         hubContext.Clients.All.sendHelloObject(vv);
                         Console.WriteLine("Server Sending sendHelloObject\n");
