@@ -27,6 +27,12 @@ namespace SignalRClientWPF
             InitializeComponent();
         }
 
+
+        private async void ActionHeartbeatButtonClick(object sender, RoutedEventArgs e)
+        {
+            await SendHeartbeat();
+        }
+
         private async void ActionSendButtonClick(object sender, RoutedEventArgs e)
         {
             await SendMessage();
@@ -35,6 +41,11 @@ namespace SignalRClientWPF
         private async Task SendMessage()
         {
             await Proxy.Invoke("Addmessage", ClientNameTextBox.Text , MessageTextBox.Text);
+        }
+
+        private async Task SendHeartbeat()
+        {
+            await Proxy.Invoke("Heartbeat");
         }
 
         private async void ActionWindowLoaded(object sender, RoutedEventArgs e)
@@ -46,6 +57,7 @@ namespace SignalRClientWPF
                 Proxy = Connection.CreateHubProxy("MyHub");
 
                 Proxy.On<string>("addmessage", OnSendData);
+                //Proxy.On("heartbeat" );
 
                 Connection.Start();
 
@@ -55,6 +67,7 @@ namespace SignalRClientWPF
                 }
             }) { IsBackground = true };
             Thread.Start();
+
         }
 
         private void OnSendData(string message)
