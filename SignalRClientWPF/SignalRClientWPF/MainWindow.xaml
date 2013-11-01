@@ -10,21 +10,25 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="Auto"  />
+            <ColumnDefinition />
             <ColumnDefinition />
             <ColumnDefinition Width="Auto" MinWidth="149" />
         </Grid.ColumnDefinitions>
 
-        <Label Content="Client name:" Grid.Column="0" Grid.Row="0" Margin="5" />
-        <TextBox Grid.Column="1" Grid.Row="0" Margin="5" x:Name="ClientNameTextBox" Grid.ColumnSpan="2" />
+        <Label Content="Message:" Grid.Column="0" Grid.Row="0" Margin="5" />
+        <TextBox Width="Auto" Grid.Column="1" Grid.Row="0" Margin="5,5,10,5" x:Name="ClientNameTextBox"  />
+        <TextBox Width="Auto" Grid.Column="2" Grid.Row="0" Margin="5,5,10,5" x:Name="MessageTextBox" KeyDown="ActionMessageTextBoxOnKeyDown" />
+        <Button Content="AddMessage" Grid.Column="3" Grid.Row="0" Margin="17,5" x:Name="SendButton" Click="ActionSendButtonClick" />
 
-        <Label Content="Message:" Grid.Column="0" Grid.Row="1" Margin="5" />
-        <TextBox Width="Auto" Grid.Column="1" Grid.Row="1" Margin="5,5,10,5" x:Name="MessageTextBox" KeyDown="ActionMessageTextBoxOnKeyDown" />
-        <Button Content="AddMessage" Grid.Column="2" Grid.Row="1" Margin="17,5" x:Name="SendButton" Click="ActionSendButtonClick" />
+        <Label Content="Heartbeat:" Grid.Column="0" Grid.Row="1" Margin="5" />
+        <Button Content="Send Heartbeat" Grid.Column="3" Grid.Row="1" Margin="17,5" x:Name="HeartbeatButton" Click="ActionHeartbeatButtonClick" />
 
-        <Label Content="Heartbeat:" Grid.Column="0" Grid.Row="2" Margin="5" />
-        <Button Content="Send" Grid.Column="2" Grid.Row="2" Margin="17,5" x:Name="HeartbeatButton" Click="ActionHeartbeatButtonClick" />
+        <Label Content="Age, Molly:" Grid.Column="0" Grid.Row="2" Margin="5" />
+        <TextBox Width="Auto" Grid.Column="1" Grid.Row="2" Margin="5,5,10,5" x:Name="HelloTextBox"  />
+        <TextBox Width="Auto" Grid.Column="2" Grid.Row="2" Margin="5,5,10,5" x:Name="HelloMollyTextBox" KeyDown="ActionMessageTextBoxOnKeyDown" />
+        <Button Content="Send Object" Grid.Column="3" Grid.Row="2" Margin="17,5" x:Name="HelloButton" Click="ActionSendObjectButtonClick" />
 
-        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Margin="5" x:Name="MessagesListBox" />
+        <ListBox Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="4" Margin="5" x:Name="MessagesListBox" />
     </Grid>
 </Window>

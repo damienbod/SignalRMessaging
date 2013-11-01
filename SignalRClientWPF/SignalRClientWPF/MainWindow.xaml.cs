@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using Microsoft.AspNet.SignalR.Client;
 using Microsoft.AspNet.SignalR.Client.Hubs;
+using SignalRClientWPF.Dto;
 
 namespace SignalRClientWPF
 {
@@ -38,6 +39,11 @@ namespace SignalRClientWPF
             await SendMessage();
         }
 
+        private async void ActionSendObjectButtonClick(object sender, RoutedEventArgs e)
+        {
+            await SendMessage();
+        }     
+
         private async Task SendMessage()
         {
             await Proxy.Invoke("Addmessage", ClientNameTextBox.Text , MessageTextBox.Text);
@@ -48,6 +54,12 @@ namespace SignalRClientWPF
             await Proxy.Invoke("Heartbeat");
         }
 
+        private async Task SendHelloObject()
+        {
+            HelloModel hello = new HelloModel { Age = Convert.ToInt32(HelloTextBox.Text), Molly = HelloMollyTextBox.Text };
+            await Proxy.Invoke("sendHelloObject", hello);
+        }
+
         private async void ActionWindowLoaded(object sender, RoutedEventArgs e)
         {
             Active = true;
@@ -56,8 +68,9 @@ namespace SignalRClientWPF
                 Connection = new HubConnection(Host);
                 Proxy = Connection.CreateHubProxy("MyHub");
 
-                Proxy.On<string>("addmessage", OnSendData);
-                //Proxy.On("heartbeat" );
+                Proxy.On<string, string>("addmessage", (name, message) => OnSendData("Recieved addMessage: " + name + ": " + message ));
+                Proxy.On("heartbeat", () => OnSendData("Recieved heartbeat"));
+                Proxy.On<HelloModel>("sendHelloObject", hello => OnSendData("Recieved sendHelloObject " + hello.Molly +  " " + hello.Age));
 
                 Connection.Start();
 
